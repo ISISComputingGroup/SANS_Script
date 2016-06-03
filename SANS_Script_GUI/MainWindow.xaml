@@ -1,0 +1,59 @@
+﻿<Window x:Class="LOQ_Script_Gui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:LOQ_Script_Gui"
+        Title="SANS Script" Height="650" Width="900" Closed="Window_Closed">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.ColumnSpan="2" x:Name="mnuMain">
+            <MenuItem Header="_File">
+                <MenuItem x:Name="mnuExportToExcel" Header="Export Table to Excel" HorizontalAlignment="Left" Click="mnuExportToExcel_Click"/>
+                <MenuItem x:Name="mnuSaveCsv" Header="Save as CSV" HorizontalAlignment="Left" Click="mnuSaveCsv_Click"/>
+                <MenuItem x:Name="mnuExit" Header="E_xit" HorizontalAlignment="Left" Click="mnuExit_Click"/>
+            </MenuItem>
+            <MenuItem Header="_Instrument">
+                <MenuItem Header="LARMOR" HorizontalAlignment="Left" IsCheckable="True" IsChecked="{Binding IsLarmor}"/>
+                <MenuItem Header="LOQ" HorizontalAlignment="Left" IsCheckable="True" IsChecked="{Binding IsLoq}"/>
+                <MenuItem Header="SANS2D" HorizontalAlignment="Left" IsCheckable="True" IsChecked="{Binding IsSans2d}"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+            <Button x:Name="btnOpenExcel" Margin="5" Click="btnOpenExcel_Click">Load Excel File</Button>
+            <Button x:Name="btnCreateNewTable" Margin="5" Click="btnCreateNewTable_Click">Create New Table</Button>
+        </StackPanel>
+        <local:SettingsPanel x:Name="pnlSettings" Grid.Row="2"></local:SettingsPanel>
+        <local:EstimationPanel x:Name="pnlEstimate" Grid.Row="3"></local:EstimationPanel>
+        <DataGrid x:Name="dataGrid" Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" Margin="0,5,5,5" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Runs}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="POSITION" Binding="{Binding Position}"></DataGridTextColumn>
+                <DataGridTextColumn Header="TRANS" Binding="{Binding Trans}"></DataGridTextColumn>
+                <DataGridComboBoxColumn Header="TRANS__WAIT" ItemsSource="{Binding Source={x:Static local:DataGridVM.WaitForChoices}}" SelectedValueBinding="{Binding TransWait}"></DataGridComboBoxColumn>
+                <DataGridTextColumn Header="SANS" Binding="{Binding Sans}"></DataGridTextColumn>
+                <DataGridComboBoxColumn Header="SANS__WAIT" ItemsSource="{Binding Source={x:Static local:DataGridVM.WaitForChoices}}" SelectedValueBinding="{Binding SansWait}"></DataGridComboBoxColumn>
+                <DataGridTextColumn Header="PERIOD" Binding="{Binding Period}"></DataGridTextColumn>
+                <DataGridTextColumn Header="SAMPLE__IDENTIFICATION__STRING" Binding="{Binding Sample}"></DataGridTextColumn>
+                <DataGridTextColumn Header="THICKNESS" Binding="{Binding Thickness}"></DataGridTextColumn>
+                <DataGridTextColumn Header="TEMPERATURE" Binding="{Binding Temperature1}"></DataGridTextColumn>
+                <DataGridTextColumn Header="TEMPERATURE2" Binding="{Binding Temperature2}"></DataGridTextColumn>
+                <DataGridTextColumn Header="FIELD" Binding="{Binding Field}"></DataGridTextColumn>
+                <DataGridTextColumn Header="SHEAR__RATE__1" Binding="{Binding ShearRate1}"></DataGridTextColumn>
+                <DataGridTextColumn Header="SHEAR__RATE__2" Binding="{Binding ShearRate2}"></DataGridTextColumn>
+                <DataGridTextColumn Header="SHEAR__ANGLE__1" Binding="{Binding ShearAngle1}"></DataGridTextColumn>
+                <DataGridTextColumn Header="SHEAR__ANGLE__2" Binding="{Binding ShearAngle2}"></DataGridTextColumn>
+                <DataGridTextColumn Header="PRE__COMMAND" Binding="{Binding PreCommand}"></DataGridTextColumn>
+                <DataGridTextColumn Header="POST__COMMAND" Binding="{Binding PostCommand}"></DataGridTextColumn>
+                <DataGridTextColumn Header="RB__NUMBER" Binding="{Binding RbNumber}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
